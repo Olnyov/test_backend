@@ -39,6 +39,10 @@ class SendMailController extends Controller {
      * @param res
      */
     do(req, res) {
+        if (!this[_sendMailFrom]) {
+            throw new SendMailInternalServerError('Empty "SEND_MAIL_FROM" in .env');
+        }
+
         if (!req.body.to) {
             throw new SendMailInvalidArgumentError('Empty "to"');
         }
@@ -94,7 +98,9 @@ class SendMailController extends Controller {
 
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                throw new SendMailInternalServerError(err.message);
+                this.error(new SendMailInternalServerError(err.message), res);
+
+                return;
             }
 
             this.response(res);

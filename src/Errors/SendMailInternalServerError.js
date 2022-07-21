@@ -1,9 +1,9 @@
-const InvalidArgumentError = require('./InvalidArgumentError');
+const InternalServerError = require('./InternalServerError');
 
 /**
  * Ошибка SendMailController
  */
-class SendMailInternalServerError extends InvalidArgumentError {
+class SendMailInternalServerError extends InternalServerError {
     /**
      * Конструктор
      *

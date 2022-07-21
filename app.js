@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express'),
     app = express(),
-    port = process.env.OBSERVED_PORT;
+    port = process.env.OBSERVED_PORT ? process.env.OBSERVED_PORT : 3000;
 
 app.use(express.json());
 
