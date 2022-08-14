@@ -6,13 +6,9 @@ const express = require('express'),
 
 app.use(express.json());
 
-const SendMailController = new (require('./src/Controllers/SendMailController'))(
-    process.env.USER_SMTP,
-    process.env.PASS_SMTP,
-    process.env.SEND_MAIL_FROM,
-    process.env.APP_DEBUG
-);
-app.post('/sendMail', SendMailController.controller.bind(SendMailController));
+const TestController = new (require('./src/Controllers/TestController'))();
+
+app.get('/getData', TestController.controller.bind(TestController));
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
