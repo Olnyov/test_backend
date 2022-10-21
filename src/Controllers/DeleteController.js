@@ -6,7 +6,7 @@ const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 const dbName = 'danila';
 
-class TestController extends Controller {
+class DeleteController extends Controller {
 
     /**
      * Конструктор
@@ -18,8 +18,8 @@ class TestController extends Controller {
 
     /**
      *
-     * @param req отвечает за запрос, кот мы делаем с браузера
-     * @param res отвечает за ответ
+     * @param req
+     * @param res
      */
     do(req, res) {
         this.main(req)
@@ -29,18 +29,14 @@ class TestController extends Controller {
             })
             .catch(console.error)
             .finally(() => client.close());
-
-
     }
 
     async main(req) {
-        console.log(req.query.title);
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection('density');
-        return await collection.findOne({"title": req.query.title});
-
+        return await collection.deletetOne();
     }
 }
 
-module.exports = TestController;
+module.exports = DeleteController;

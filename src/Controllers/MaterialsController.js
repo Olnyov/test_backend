@@ -1,12 +1,12 @@
 
 const Controller = require('./Controller');
 const _debug = Symbol();
-const { MongoClient } = require('mongodb');
+const { MongoClient, ListCollectionsCursor } = require('mongodb');
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 const dbName = 'danila';
 
-class TestController extends Controller {
+class MaterialsController extends Controller {
 
     /**
      * Конструктор
@@ -18,8 +18,8 @@ class TestController extends Controller {
 
     /**
      *
-     * @param req отвечает за запрос, кот мы делаем с браузера
-     * @param res отвечает за ответ
+     * @param req
+     * @param res
      */
     do(req, res) {
         this.main(req)
@@ -34,13 +34,13 @@ class TestController extends Controller {
     }
 
     async main(req) {
-        console.log(req.query.title);
+
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection('density');
-        return await collection.findOne({"title": req.query.title});
+        return await collection.find().toArray();
 
     }
 }
 
-module.exports = TestController;
+module.exports = MaterialsController;
